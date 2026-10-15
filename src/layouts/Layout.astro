@@ -1,6 +1,7 @@
 
 ---
 import Header from "../components/Header.astro";
+import SubirArriba from "../components/SubirArriba.astro";
 
 interface Props {
 	title?: string;
@@ -32,6 +33,7 @@ const {
 				Observatorio de Inteligencia Artificial y Regulación Nuclear
 			</p>
 		</footer>
+		<SubirArriba />
 	</body>
 </html>
 
@@ -47,12 +49,13 @@ const {
 		color: #202020;
 		line-height: 1.6;
 	}
-
-	footer {
-		border-top: 1px solid #e5e7eb;
-		padding: 30px 32px;
-		color: #666666;
-		text-align: center;
-		font-size: 0.85rem;
+	
+	.regulator-type span,
+	.case-tags span,
+	.doc-tags span,
+	.status,
+	.tag,
+	.meta {
+		text-transform: capitalize !important;
 	}
 </style>

@@ -70,15 +70,16 @@ const novedades = [
 
 			<h2>Buscar en el observatorio</h2>
 
-			<div class="search-box">
+			<form class="search-box" action="/buscar" method="get">
 				<input
 					type="search"
+					name="q"
 					placeholder="Organismos, iniciativas, documentos..."
 					aria-label="Buscar en el observatorio"
 				/>
 
-				<button type="button">Buscar</button>
-			</div>
+				<button type="submit">Buscar</button>
+			</form>
 		</section>
 
 		<section class="indicators" id="indicadores">
@@ -358,6 +359,30 @@ const novedades = [
 		max-width: 650px;
 		margin: 0;
 		color: #666666;
+	}
+	.search-section,
+	.indicators {
+		text-align: center;
+	}
+
+	.search-section .search-box {
+		margin: 0 auto;
+		text-align: left;
+	}
+
+	.indicator {
+		text-align: center;
+	}
+		.explore {
+		text-align: center;
+	}
+
+	.explore .explore-item {
+		text-align: center;
+	}
+
+	.explore .explore-item p {
+		margin: 0 auto;
 	}
 
 	@media (max-width: 800px) {

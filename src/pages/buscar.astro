@@ -1,0 +1,247 @@
+---
+import Layout from "../layouts/Layout.astro";
+import regs from "../data/reguladores.json";
+import apps from "../data/aplicaciones.json";
+import ctx from "../data/contexto.json";
+
+const registros = [
+	...regs.items.map((o) => ({
+		tipo: o.tipo === "internacional" ? "Organismo internacional" : "Regulador",
+		titulo: o.nombre,
+		detalle: [o.sigla, o.pais].filter(Boolean).join(" · "),
+		texto: o.descripcion ?? "",
+		enlace: `/reguladores/${o.id}`,
+	})),
+	...regs.items.flatMap((o) =>
+		(o.iniciativas ?? []).map((i) => ({
+			tipo: "Iniciativa",
+			titulo: i.titulo,
+			detalle: o.sigla || o.nombre,
+			texto: i.descripcion ?? "",
+			enlace: `/reguladores/${o.id}`,
+		}))
+	),
+	...regs.items.flatMap((o) =>
+		(o.documentos ?? []).map((d) => ({
+			tipo: "Documento",
+			titulo: d.titulo,
+			detalle: o.sigla || o.nombre,
+			texto: "",
+			enlace: `/reguladores/${o.id}`,
+		}))
+	),
+	...apps.items.map((c) => ({
+		tipo: "Caso de aplicación",
+		titulo: c.titulo,
+		detalle: c.organismo ?? "",
+		texto: c.descripcion ?? "",
+		enlace: "/aplicaciones",
+	})),
+	...ctx.items.map((h) => ({
+		tipo: "Contexto",
+		titulo: h.titulo,
+		detalle: h.fecha ?? "",
+		texto: h.descripcion ?? "",
+		enlace: "/contexto",
+	})),
+];
+---
+
+<Layout title="Buscar | Observatorio de IA y Regulación Nuclear">
+	<main class="page">
+		<header class="page-header">
+			<p class="eyebrow">BUSCAR</p>
+			<h1>Buscar en el observatorio</h1>
+
+			<form class="search-box" action="/buscar" method="get">
+				<input
+					id="q"
+					name="q"
+					type="search"
+					placeholder="Organismos, iniciativas, documentos..."
+					aria-label="Buscar en el observatorio"
+				/>
+				<button type="submit">Buscar</button>
+			</form>
+		</header>
+
+		<section class="content">
+			<p id="resumen" class="summary"></p>
+			<div id="resultados" class="lista"></div>
+		</section>
+	</main>
+</Layout>
+
+<script define:vars={{ registros }}>
+	const normalizar = (t) =>
+		String(t ?? "")
+			.toLowerCase()
+			.normalize("NFD")
+			.replace(/[\u0300-\u036f]/g, "");
+
+	const params = new URLSearchParams(window.location.search);
+	const consulta = (params.get("q") ?? "").trim();
+
+	const input = document.getElementById("q");
+	const resumen = document.getElementById("resumen");
+	const lista = document.getElementById("resultados");
+
+	input.value = consulta;
+
+	if (!consulta) {
+		resumen.textContent = "Escribí una palabra para buscar.";
+	} else {
+		const palabras = normalizar(consulta).split(/\s+/).filter(Boolean);
+
+		const resultados = registros.filter((r) => {
+			const texto = normalizar(
+				[r.titulo, r.detalle, r.texto, r.tipo].join(" ")
+			);
+			return palabras.every((p) => texto.includes(p));
+		});
+
+		resumen.textContent =
+			resultados.length === 0
+				? `No se encontraron resultados para "${consulta}".`
+				: `${resultados.length} resultado${resultados.length === 1 ? "" : "s"} para "${consulta}".`;
+
+		for (const r of resultados) {
+			const a = document.createElement("a");
+			a.className = "resultado";
+			a.href = r.enlace;
+
+			const meta = document.createElement("span");
+			meta.className = "r-meta";
+			meta.textContent = r.detalle ? `${r.tipo} · ${r.detalle}` : r.tipo;
+
+			const titulo = document.createElement("span");
+			titulo.className = "r-titulo";
+			titulo.textContent = r.titulo;
+
+			a.append(meta, titulo);
+
+			if (r.texto) {
+				const desc = document.createElement("span");
+				desc.className = "r-texto";
+				desc.textContent = r.texto;
+				a.append(desc);
+			}
+
+			lista.append(a);
+		}
+	}
+</script>
+
+<style>
+	.page {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 80px 32px 100px;
+	}
+
+	.page-header {
+		max-width: 850px;
+		padding-bottom: 50px;
+		border-bottom: 1px solid #e5e7eb;
+	}
+
+	.eyebrow {
+		margin: 0 0 20px;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.2em;
+		color: #2563eb;
+	}
+
+	h1 {
+		margin: 0 0 30px;
+		font-size: clamp(2.2rem, 5vw, 3.5rem);
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+	}
+
+	.search-box {
+		display: flex;
+		max-width: 800px;
+	}
+
+	.search-box input {
+		flex: 1;
+		min-width: 0;
+		padding: 16px 18px;
+		border: 1px solid #d1d5db;
+		border-right: none;
+		font: inherit;
+		font-size: 0.95rem;
+		outline: none;
+	}
+
+	.search-box input:focus {
+		border-color: #2563eb;
+	}
+
+	.search-box button {
+		padding: 0 24px;
+		border: none;
+		background: #2563eb;
+		color: #ffffff;
+		font: inherit;
+		font-size: 0.9rem;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.content {
+		padding-top: 35px;
+	}
+
+	.summary {
+		margin: 0 0 20px;
+		color: #666;
+	}
+
+	.lista {
+		max-width: 800px;
+	}
+
+	:global(.resultado) {
+		display: block;
+		padding: 22px 0;
+		border-top: 1px solid #d1d5db;
+		text-decoration: none;
+		color: #202020;
+	}
+
+	:global(.r-meta) {
+		display: block;
+		margin-bottom: 6px;
+		color: #2563eb;
+		font-size: 0.78rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	:global(.r-titulo) {
+		display: block;
+		font-size: 1.2rem;
+		font-weight: 600;
+	}
+
+	:global(.r-texto) {
+		display: block;
+		margin-top: 6px;
+		color: #555;
+		line-height: 1.6;
+	}
+
+	:global(.resultado:hover .r-titulo) {
+		color: #2563eb;
+	}
+
+	@media (max-width: 650px) {
+		.page {
+			padding: 60px 20px 80px;
+		}
+	}
+</style>

@@ -1,0 +1,63 @@
+---
+---
+
+<button type="button" class="subir" id="subir" aria-label="Volver arriba">
+	↑
+</button>
+
+<script>
+	const boton = document.getElementById("subir");
+
+	function actualizar() {
+		if (window.scrollY > 300) {
+			boton?.classList.add("visible");
+		} else {
+			boton?.classList.remove("visible");
+		}
+	}
+
+	window.addEventListener("scroll", actualizar, { passive: true });
+	actualizar();
+
+	boton?.addEventListener("click", () => {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	});
+</script>
+
+<style>
+	.subir {
+		position: fixed;
+		right: 24px;
+		bottom: 24px;
+		width: 44px;
+		height: 44px;
+		border: none;
+		border-radius: 50%;
+		background: #2563EB;
+		color: #ffffff;
+		font-size: 1.3rem;
+		line-height: 1;
+		cursor: pointer;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.25s ease, background 0.2s ease;
+		z-index: 100;
+	}
+
+	.subir.visible {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.subir:hover {
+		background: #1d4ed8;
+	}
+
+	@media (max-width: 650px) {
+		.subir {
+			right: 16px;
+			bottom: 16px;
+		}
+	}
+</style>

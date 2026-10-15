@@ -1,0 +1,221 @@
+
+---
+import Layout from "../layouts/Layout.astro";
+
+const secciones = [
+  {
+    numero: "01",
+    titulo: "Presentación",
+    parrafos: [
+      "El Observatorio de Inteligencia Artificial y Regulación Nuclear es una iniciativa en desarrollo en el ámbito del grupo de trabajo dedicado a la aplicación de herramientas de inteligencia artificial en la Autoridad Regulatoria Nuclear (ARN).",
+      "Su propósito es relevar, organizar y sistematizar información sobre los avances, las aplicaciones y las experiencias vinculadas con la inteligencia artificial en el sector nuclear, con especial atención a los organismos reguladores y al contexto internacional.",
+      "El Observatorio busca constituir una herramienta de consulta que facilite el acceso a información organizada, permita realizar un seguimiento de las iniciativas identificadas y contribuya al intercambio de conocimientos entre los integrantes del grupo de trabajo."
+    ]
+  },
+  {
+    numero: "02",
+    titulo: "Objetivos y alcance",
+    parrafos: [
+      "El proyecto contempla el relevamiento de iniciativas relacionadas con el uso de inteligencia artificial por parte de organismos reguladores nucleares, así como el seguimiento de desarrollos, experiencias y marcos regulatorios vinculados con estas tecnologías en el ámbito nacional e internacional.",
+      "La información se organiza temáticamente para facilitar su consulta, comparación y actualización progresiva."
+    ]
+  },
+  {
+    numero: "03",
+    titulo: "Metodología",
+    parrafos: [
+      "La información se incorpora mediante un proceso de búsqueda, selección y organización de contenidos de acuerdo con su pertinencia para los objetivos del Observatorio.",
+      "Se procura identificar las fuentes de origen, distinguir entre iniciativas anunciadas, en desarrollo e implementadas, y registrar los datos necesarios para comprender el contexto de cada caso. Los criterios de relevamiento y clasificación podrán ajustarse a medida que avance el proyecto."
+    ]
+  },
+  {
+    numero: "04",
+    titulo: "Fuentes y verificación",
+    parrafos: [
+      "Se prioriza la consulta de fuentes oficiales, documentación institucional, informes técnicos y publicaciones especializadas. Cuando resulta posible, se procura contrastar la información con las fuentes originales y conservar referencias que permitan volver a consultar los antecedentes de cada registro."
+    ]
+  },
+  {
+    numero: "05",
+    titulo: "Desarrollo y actualización",
+    parrafos: [
+      "El Observatorio se encuentra en una etapa de desarrollo progresivo. La incorporación de nuevos registros, la revisión de la información existente y la mejora de los criterios de clasificación forman parte de un proceso continuo de construcción y perfeccionamiento de la herramienta."
+    ]
+  },
+  {
+    numero: "06",
+    titulo: "Alcances y limitaciones",
+    parrafos: [
+      "La información disponible depende de la documentación accesible y de las posibilidades de verificación de cada caso. La ausencia de un registro no implica necesariamente la inexistencia de una iniciativa, y la identificación de un desarrollo no supone, por sí misma, que se encuentre operativo o que haya sido evaluado de manera independiente."
+    ]
+  }
+];
+---
+
+<Layout title="Acerca del Observatorio | IA y Regulación Nuclear">
+  <main class="about">
+    <section class="intro">
+      <p class="eyebrow">SOBRE EL PROYECTO</p>
+
+      <h1>Acerca del Observatorio</h1>
+
+      <p class="lead">
+        Un espacio de relevamiento y análisis sobre inteligencia artificial
+        y regulación nuclear, orientado a organizar información,
+        identificar tendencias y facilitar la consulta de experiencias
+        nacionales e internacionales.
+      </p>
+
+      <div class="tags">
+        <span>Investigación</span>
+        <span>Inteligencia artificial</span>
+        <span>Regulación nuclear</span>
+      </div>
+    </section>
+
+    <section class="content">
+      {secciones.map((seccion) => (
+        <article class="section">
+          <span class="number">{seccion.numero}</span>
+
+          <div class="section-content">
+            <h2>{seccion.titulo}</h2>
+
+            {seccion.parrafos.map((parrafo) => (
+              <p>{parrafo}</p>
+            ))}
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <footer class="note">
+      <p>
+        <strong>Nota metodológica.</strong>
+        El contenido del Observatorio se encuentra sujeto a revisión y
+        actualización. Cada registro debe interpretarse considerando
+        su contexto, las fuentes disponibles y la fecha de la información
+        consultada.
+      </p>
+    </footer>
+  </main>
+</Layout>
+
+<style>
+  .about {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 64px 32px 80px;
+    color: #111827;
+  }
+
+  .intro {
+    max-width: 780px;
+    margin-bottom: 54px;
+  }
+
+  .eyebrow {
+    margin: 0 0 18px;
+    color: #2563eb;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+  }
+
+  h1 {
+    margin: 0 0 22px;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.045em;
+  }
+
+  .lead {
+    max-width: 720px;
+    color: #4b5563;
+    font-size: 1.12rem;
+    line-height: 1.85;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .tags span {
+    padding: 8px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    color: #374151;
+    font-size: 0.82rem;
+  }
+
+  .content {
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .section {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 22px;
+    padding: 30px 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .number {
+    color: #2563eb;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding-top: 5px;
+  }
+
+  h2 {
+    margin: 0 0 12px;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+  }
+
+  .section-content p {
+    margin: 0 0 14px;
+    color: #4b5563;
+    line-height: 1.85;
+  }
+
+  .section-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .note {
+    margin-top: 32px;
+    padding: 22px 24px;
+    border-left: 3px solid #2563eb;
+    background: #f9fafb;
+  }
+
+  .note p {
+    margin: 0;
+    color: #4b5563;
+    line-height: 1.85;
+  }
+
+  .note strong {
+    color: #111827;
+  }
+
+  @media (max-width: 600px) {
+    .about {
+      padding: 40px 20px 56px;
+    }
+
+    .section {
+      grid-template-columns: 32px 1fr;
+      gap: 12px;
+      padding: 24px 0;
+    }
+
+    .lead {
+      font-size: 1rem;
+    }
+  }
+</style>

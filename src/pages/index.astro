@@ -1,17 +1,405 @@
 ---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import datos from "../data/reguladores.json";
 
+const organismos = datos.items;
+const paises = new Set(
+	organismos.filter((o) => o.tipo === "regulador").map((o) => o.pais)
+).size;
+const iniciativas = organismos.reduce(
+	(total, o) => total + (o.iniciativas?.length ?? 0),
+	0
+);
+const documentos = organismos.reduce(
+	(total, o) => total + (o.documentos?.length ?? 0),
+	0
+);
+
+import aplicacionesDatos from "../data/aplicaciones.json";
+import contextoDatos from "../data/contexto.json";
+
+const novedades = [
+	...organismos.flatMap((o) =>
+		(o.iniciativas ?? []).map((i) => ({
+			tipo: "Iniciativa",
+			titulo: i.titulo,
+			origen: o.sigla || o.nombre,
+			anio: i.anio,
+			fecha: i.anio ? `${i.anio}-00-00` : "",
+			enlace: `/reguladores/${o.id}`,
+		}))
+	),
+	...organismos.flatMap((o) =>
+		(o.documentos ?? []).map((d) => ({
+			tipo: "Documento",
+			titulo: d.titulo,
+			origen: o.sigla || o.nombre,
+			anio: d.anio,
+			fecha: d.anio ? `${d.anio}-00-00` : "",
+			enlace: "/documentos",
+		}))
+	),
+	...aplicacionesDatos.items.map((c) => ({
+		tipo: "Caso de aplicación",
+		titulo: c.titulo,
+		origen: c.organismo,
+		anio: c.anio,
+		fecha: c.anio ? `${c.anio}-00-00` : "",
+		enlace: "/aplicaciones",
+	})),
+	...contextoDatos.items.map((h) => ({
+		tipo: "Contexto",
+		titulo: h.titulo,
+		origen: "",
+		anio: String(h.fecha ?? "").slice(0, 4),
+		fecha: String(h.fecha ?? ""),
+		enlace: "/contexto",
+	})),
+]
+	.sort((a, b) => b.fecha.localeCompare(a.fecha))
+	.slice(0, 5);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+	<Hero />
+
+	<main>
+		<section class="search-section">
+			<p class="eyebrow">BUSCAR</p>
+
+			<h2>Buscar en el observatorio</h2>
+
+			<div class="search-box">
+				<input
+					type="search"
+					placeholder="Organismos, iniciativas, documentos..."
+					aria-label="Buscar en el observatorio"
+				/>
+
+				<button type="button">Buscar</button>
+			</div>
+		</section>
+
+		<section class="indicators" id="indicadores">
+	<p class="eyebrow">EL OBSERVATORIO EN CIFRAS</p>
+
+	<div class="indicator-grid">
+		<div class="indicator">
+			<strong>{organismos.length}</strong>
+			<span>Organismos</span>
+		</div>
+
+		<div class="indicator">
+			<strong>{paises}</strong>
+			<span>Países</span>
+		</div>
+
+		<div class="indicator">
+			<strong>{iniciativas}</strong>
+			<span>Iniciativas</span>
+		</div>
+
+		<div class="indicator">
+			<strong>{documentos}</strong>
+			<span>Documentos</span>
+		</div>
+	</div>
+</section>
+
+		<section class="explore" id="explorar">
+			<p class="eyebrow">EXPLORAR</p>
+
+			<h2>Explorar el observatorio</h2>
+
+			<div class="explore-grid">
+				<a href="/reguladores" class="explore-item">
+					<span>01</span>
+					<h3>Reguladores</h3>
+					<p>
+						Organismos regulatorios nucleares y sus experiencias
+						relacionadas con inteligencia artificial.
+					</p>
+				</a>
+
+				<a href="/Org_internacionales" class="explore-item">
+					<span>02</span>
+					<h3>Organismos internacionales</h3>
+					<p>
+						Organizaciones internacionales relevantes para el
+						ámbito de la inteligencia artificial y la actividad nuclear.
+					</p>
+				</a>
+
+				<a href="/aplicaciones" class="explore-item">
+					<span>03</span>
+					<h3>Aplicaciones e iniciativas</h3>
+					<p>
+						Casos de uso, proyectos y experiencias vinculadas con
+						la inteligencia artificial.
+					</p>
+				</a>
+
+				<a href="/evolucion" class="explore-item">
+					<span>04</span>
+					<h3>Evolución</h3>
+					<p>
+						Desarrollo temporal de iniciativas y experiencias
+						relacionadas con IA.
+					</p>
+				</a>
+
+				<a href="/documentos" class="explore-item">
+					<span>05</span>
+					<h3>Documentos</h3>
+					<p>
+						Informes, normas, guías, publicaciones y otros
+						documentos de referencia.
+					</p>
+				</a>
+
+				<a href="/contexto" class="explore-item">
+					<span>06</span>
+					<h3>Contexto internacional</h3>
+					<p>
+						Noticias, tendencias, informes y desarrollos
+						internacionales relevantes.
+					</p>
+				</a>
+			</div>
+		</section>
+
+		<section class="latest">
+			<p class="eyebrow">ACTUALIDAD</p>
+
+				<h2>Últimas novedades</h2>
+
+				{novedades.length === 0 ? (
+					<p class="placeholder">Todavía no hay novedades cargadas.</p>
+				) : (
+			<div class="news-list">
+				{novedades.map((n) => (
+					<a class="news-item" href={n.enlace}>
+						<span class="news-meta">
+							{n.tipo}
+							{n.origen && ` · ${n.origen}`}
+							{n.anio && ` · ${n.anio}`}
+							</span>
+						<span class="news-title">{n.titulo}</span>
+					</a>
+				))}
+			</div>
+		)}
+	</section>
+	</main>
+</Layout>
+
+<style>
+	main {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 0 32px 100px;
+	}
+
+	section {
+		padding: 80px 0;
+		border-bottom: 1px solid #e5e7eb;
+	}
+
+	.eyebrow {
+		margin: 0 0 18px;
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.2em;
+		color: #2563EB;
+	}
+
+	h2 {
+		margin: 0 0 35px;
+		font-size: clamp(2rem, 4vw, 3rem);
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+	}
+
+	.search-box {
+		display: flex;
+		max-width: 800px;
+	}
+
+	.search-box input {
+		flex: 1;
+		min-width: 0;
+		padding: 16px 18px;
+		border: 1px solid #d1d5db;
+		border-right: none;
+		font: inherit;
+		font-size: 0.95rem;
+		outline: none;
+	}
+
+	.search-box input:focus {
+		border-color: #2563EB;
+	}
+
+	.search-box button {
+		padding: 0 24px;
+		border: none;
+		background: #2563EB;
+		color: #ffffff;
+		font: inherit;
+		font-size: 0.9rem;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.indicator-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		border-top: 1px solid #d1d5db;
+		border-bottom: 1px solid #d1d5db;
+	}
+
+	.indicator {
+		padding: 28px 20px;
+		border-right: 1px solid #e5e7eb;
+	}
+
+	.indicator:last-child {
+		border-right: none;
+	}
+
+	.indicator strong {
+		display: block;
+		font-size: 2.8rem;
+		line-height: 1;
+		letter-spacing: -0.04em;
+	}
+
+	.indicator span {
+		display: block;
+		margin-top: 10px;
+		color: #666666;
+		font-size: 0.9rem;
+	}
+
+	.explore-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0 40px;
+	}
+
+	.explore-item {
+		display: block;
+		padding: 30px 0;
+		border-top: 1px solid #d1d5db;
+		text-decoration: none;
+		color: #202020;
+	}
+
+	.explore-item span {
+		font-size: 0.72rem;
+		font-weight: 700;
+		color: #2563EB;
+	}
+
+	.explore-item h3 {
+		margin: 8px 0 10px;
+		font-size: 1.35rem;
+	}
+
+	.explore-item p {
+		max-width: 500px;
+		margin: 0;
+		color: #666666;
+		font-size: 0.95rem;
+	}
+
+	.explore-item:hover h3 {
+		color: #2563EB;
+	}
+
+	.latest {
+		border-bottom: none;
+	}
+
+		.news-list {
+		max-width: 800px;
+	}
+
+	.news-item {
+		display: block;
+		padding: 20px 0;
+		border-top: 1px solid #d1d5db;
+		text-decoration: none;
+		color: #202020;
+	}
+
+	.news-meta {
+		display: block;
+		margin-bottom: 6px;
+		color: #666666;
+		font-size: 0.78rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.news-title {
+		display: block;
+		font-size: 1.15rem;
+		font-weight: 600;
+	}
+
+	.news-item:hover .news-title {
+		color: #2563EB;
+	}
+
+	.placeholder {
+		max-width: 650px;
+		margin: 0;
+		color: #666666;
+	}
+
+	@media (max-width: 800px) {
+		main {
+			padding: 0 20px 80px;
+		}
+
+		.indicator-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.indicator:nth-child(2) {
+			border-right: none;
+		}
+
+		.indicator:nth-child(-n + 2) {
+			border-bottom: 1px solid #e5e7eb;
+		}
+
+		.explore-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 500px) {
+		.search-box {
+			display: block;
+		}
+
+		.search-box input {
+			width: 100%;
+			border-right: 1px solid #d1d5db;
+		}
+
+		.search-box button {
+			width: 100%;
+			padding: 14px;
+			margin-top: 8px;
+		}
+
+		.indicator-grid {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+</style>

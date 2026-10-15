@@ -1,0 +1,58 @@
+
+---
+import Header from "../components/Header.astro";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = "Observatorio de Inteligencia Artificial y Regulación Nuclear",
+	description = "Un espacio para explorar avances, aplicaciones y experiencias relacionadas con la inteligencia artificial en el ámbito de la regulación nuclear.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+	</head>
+
+	<body>
+		<Header />
+
+		<slot />
+		
+		<footer>
+			<p>
+				Observatorio de Inteligencia Artificial y Regulación Nuclear
+			</p>
+		</footer>
+	</body>
+</html>
+
+<style is:global>
+	* {
+		box-sizing: border-box;
+	}
+
+	body {
+		margin: 0;
+		font-family: Arial, Helvetica, sans-serif;
+		background: #ffffff;
+		color: #202020;
+		line-height: 1.6;
+	}
+
+	footer {
+		border-top: 1px solid #e5e7eb;
+		padding: 30px 32px;
+		color: #666666;
+		text-align: center;
+		font-size: 0.85rem;
+	}
+</style>

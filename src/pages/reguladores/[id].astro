@@ -1,0 +1,177 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import datos from "../../data/reguladores.json";
+
+export function getStaticPaths() {
+	return datos.items.map((organismo) => ({
+		params: { id: organismo.id },
+		props: { organismo },
+	}));
+}
+
+const { organismo } = Astro.props;
+const iniciativas = organismo.iniciativas ?? [];
+const documentos = organismo.documentos ?? [];
+---
+
+<Layout title={`${organismo.nombre} | Observatorio de IA y Regulación Nuclear`}>
+	<main class="page">
+		<a class="back" href="/reguladores">← Volver a reguladores</a>
+
+		<header class="page-header">
+			<p class="country">{organismo.pais}</p>
+			<h1>{organismo.nombre}</h1>
+			<p class="acronym">{organismo.sigla} · {organismo.tipo}</p>
+			<p class="description">{organismo.descripcion}</p>
+			{organismo.sitioWeb && (
+				<p>
+					<a href={organismo.sitioWeb} target="_blank" rel="noopener noreferrer">
+						Sitio web oficial
+					</a>
+				</p>
+			)}
+		</header>
+
+		<section class="block">
+			<h2>Iniciativas</h2>
+			{iniciativas.length === 0 ? (
+				<p class="empty">Todavía no hay iniciativas cargadas.</p>
+			) : (
+				iniciativas.map((i) => (
+					<article class="item">
+						<h3>{i.titulo}</h3>
+						<p class="meta">
+							{i.anio} · {i.estado}
+						</p>
+						<p>{i.descripcion}</p>
+						{i.enlace && (
+							<a href={i.enlace} target="_blank" rel="noopener noreferrer">
+								Ver más
+							</a>
+						)}
+					</article>
+				))
+			)}
+		</section>
+
+		<section class="block">
+			<h2>Documentos</h2>
+			{documentos.length === 0 ? (
+				<p class="empty">Todavía no hay documentos cargados.</p>
+			) : (
+				documentos.map((d) => (
+					<article class="item">
+						<h3>{d.titulo}</h3>
+						<p class="meta">
+							{d.anio} · {d.tipo}
+						</p>
+						<div class="links">
+	                {d.archivo && (
+	                	<a href={d.archivo} download>
+	        		        Descargar archivo
+		                </a>
+                	)}
+                	{d.enlace && (
+	                	<a href={d.enlace} target="_blank" rel="noopener noreferrer">
+		                	Abrir enlace
+	                    </a>
+                	)}
+                </div>
+					</article>
+				))
+			)}
+		</section>
+
+		<p class="updated">Última actualización: {organismo.ultimaActualizacion}</p>
+	</main>
+</Layout>
+
+	<style>
+	.page {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 60px 32px 100px;
+	}
+
+	.back {
+		color: #2563eb;
+		font-size: 0.9rem;
+		text-decoration: none;
+	}
+
+	.page-header {
+		padding: 30px 0 40px;
+		border-bottom: 1px solid #e5e7eb;
+	}
+
+	.country {
+		margin: 0 0 8px;
+		color: #2563eb;
+		font-size: 0.8rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: clamp(2rem, 5vw, 3.2rem);
+		line-height: 1.1;
+	}
+
+	.acronym {
+		margin: 8px 0 16px;
+		color: #666;
+		font-weight: 600;
+	}
+
+	.description {
+		color: #555;
+		line-height: 1.7;
+	}
+
+	.block {
+		padding-top: 40px;
+	}
+
+	h2 {
+		margin: 0 0 16px;
+		font-size: 1.5rem;
+	}
+
+	.item {
+		padding: 20px 0;
+		border-top: 1px solid #d1d5db;
+	}
+
+	.item h3 {
+		margin: 0;
+		font-size: 1.15rem;
+	}
+
+	.meta {
+		margin: 4px 0 10px;
+		color: #666;
+		font-size: 0.85rem;
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 18px;
+	}
+
+	.empty {
+		color: #777;
+	}
+
+	.updated {
+		margin-top: 50px;
+		color: #777;
+		font-size: 0.85rem;
+	}
+
+	a {
+		color: #2563eb;
+	}
+</style>

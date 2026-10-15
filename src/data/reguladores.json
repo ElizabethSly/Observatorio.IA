@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "id": "nrc",
+      "nombre": "Nuclear Regulatory Commission",
+      "sigla": "NRC",
+      "pais": "Estados Unidos",
+      "tipo": "regulador",
+      "descripcion": "Organismo regulador nuclear de los Estados Unidos.",
+      "sitioWeb": "https://www.nrc.gov/",
+      "iniciativas": [],
+      "documentos": [],
+      "ultimaActualizacion": "2026-10-09"
+    },
+    {
+      "id": "onr",
+      "nombre": "Office for Nuclear Regulation",
+      "sigla": "ONR",
+      "pais": "Reino Unido",
+      "tipo": "regulador",
+      "descripcion": "Organismo encargado de la regulación de la seguridad nuclear y radiológica en Gran Bretaña.",
+      "sitioWeb": "https://www.onr.org.uk/",
+      "iniciativas": [],
+      "documentos": [],
+      "ultimaActualizacion": "2026-10-09"
+    },
+    {
+      "id": "cnsc",
+      "nombre": "Canadian Nuclear Safety Commission",
+      "sigla": "CNSC",
+      "pais": "Canadá",
+      "tipo": "regulador",
+      "descripcion": "Organismo regulador nuclear de Canadá.",
+      "sitioWeb": "https://www.cnsc-ccsn.gc.ca/",
+      "iniciativas": [],
+      "documentos": [],
+      "ultimaActualizacion": "2026-10-09"
+    },
+    {
+      "id": "oiea",
+      "nombre": "Organismo Internacional de Energía Atómica",
+      "sigla": "OIEA",
+      "pais": "Internacional",
+      "tipo": "internacional",
+      "descripcion": "Organismo de las Naciones Unidas dedicado a la cooperación en el uso pacífico de la energía nuclear.",
+      "sitioWeb": "https://www.iaea.org/",
+      "iniciativas": [],
+      "documentos": [],
+      "ultimaActualizacion": "2026-10-09"
+    }
+  ]
+}

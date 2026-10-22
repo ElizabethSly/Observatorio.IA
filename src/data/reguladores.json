@@ -1,6 +1,92 @@
 {
   "items": [
     {
+      "id": "asnr",
+      "nombre": "Autorité de sûreté nucléaire et de radioprotection",
+      "sigla": "ASNR",
+      "pais": "Francia",
+      "tipo": "regulador",
+      "descripcion": "Organismo regulador nuclear de Francia.",
+      "sitioWeb": "https://reglementation-controle.asnr.fr/",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
+      "id": "arn",
+      "nombre": "Autoridad Regulatoria Nuclear",
+      "sigla": "ARN",
+      "pais": "Argentina",
+      "tipo": "regulador",
+      "descripcion": "Organismo regulador nuclear de Argentina.",
+      "sitioWeb": "https://www.argentina.gob.ar/arn",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
+      "id": "cnsc",
+      "nombre": "Canadian Nuclear Safety Commission",
+      "sigla": "CNSC",
+      "pais": "Canadá",
+      "tipo": "regulador",
+      "descripcion": "Organismo regulador nuclear de Canadá.",
+      "sitioWeb": "https://www.cnsc-ccsn.gc.ca/",
+      "iniciativas": [],
+      "documentos": [],
+      "ultimaActualizacion": "2026-10-09"
+    },
+    {
+      "id": "cncan",
+      "nombre": "Comisia Națională pentru Controlul Activităților Nucleare",
+      "sigla": "CNCAN",
+      "pais": "Rumania",
+      "tipo": "regulador",
+      "descripcion": "Autoridad nacional en Rumania competente en la regulación, autorización y control de las actividades nucleares",
+      "sitioWeb": "https://www.cncan.ro/",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
+      "id": "cnea",
+      "nombre": "Comisión Nacional de Energía Atómica",
+      "sigla": "CNEA",
+      "pais": "Argentina",
+      "tipo": "internacional",
+      "descripcion": "Institución argentina dedicada a la investigación y desarrollo de los usos pacíficos de la tecnología nuclear.",
+      "sitioWeb": "https://www.argentina.gob.ar/cnea",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
+      "id": "grs",
+      "nombre": "Gesellschaft für Anlagen- und Reaktorsicherheit",
+      "sigla": "GRS",
+      "pais": "Alemania",
+      "tipo": "internacional",
+      "descripcion": "Organización de investigación y asesoramiento técnico en seguridad nuclear.",
+      "sitioWeb": "https://www.grs.de/",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
+      "id": "fanc",
+      "nombre": "Federal Agency for Nuclear Control ",
+      "sigla": "FANC",
+      "pais": "Bélgica",
+      "tipo": "regulador",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
+      "id": "fanr",
+      "nombre": "Federal Authority for Nuclear Regulation",
+      "sigla": "FANR",
+      "pais": "Emiratos Árabes Unidos",
+      "tipo": "regulador",
+      "sitioWeb": "https://www.fanr.gov.ae/en",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
       "id": "nrc",
       "nombre": "Nuclear Regulatory Commission",
       "sigla": "NRC",
@@ -25,18 +111,6 @@
       "ultimaActualizacion": "2026-10-09"
     },
     {
-      "id": "cnsc",
-      "nombre": "Canadian Nuclear Safety Commission",
-      "sigla": "CNSC",
-      "pais": "Canadá",
-      "tipo": "regulador",
-      "descripcion": "Organismo regulador nuclear de Canadá.",
-      "sitioWeb": "https://www.cnsc-ccsn.gc.ca/",
-      "iniciativas": [],
-      "documentos": [],
-      "ultimaActualizacion": "2026-10-09"
-    },
-    {
       "id": "oiea",
       "nombre": "Organismo Internacional de Energía Atómica",
       "sigla": "OIEA",
@@ -47,6 +121,78 @@
       "iniciativas": [],
       "documentos": [],
       "ultimaActualizacion": "2026-10-09"
+    },
+    {
+      "id": "doe",
+      "nombre": "U.S. Department of Energy",
+      "sigla": "DOE",
+      "pais": "Estados Unidos",
+      "tipo": "internacional",
+      "descripcion": "Organismo federal encargado de administrar la política nacional de energía, la seguridad nuclear y la investigación científica.",
+      "sitioWeb": "https://www.energy.gov/",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
+      "id": "haea",
+      "nombre": "Hungarian Atomic Energy Authority",
+      "sigla": "HAEA",
+      "pais": "Hungría",
+      "tipo": "regulador",
+      "sitioWeb": "https://www.haea.hu/web/v3/haeaportal.nsf/web?openagent",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
+      "id": "nssc",
+      "nombre": "Nuclear Safety and Security Commission",
+      "sigla": "NSSC",
+      "pais": "Corea del Sur",
+      "tipo": "regulador",
+      "sitioWeb": "https://www.nssc.go.kr/en/index.do",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
+      "id": "nnsa",
+      "nombre": "National Nuclear Safety Administration",
+      "sigla": "NNSA",
+      "pais": "China",
+      "tipo": "regulador",
+      "sitioWeb": "https://nnsa.mee.gov.cn/english/",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
+      "id": "arpansa",
+      "nombre": "Australian Radiation Protection and Nuclear Safety Agency ",
+      "sigla": "ARPANSA",
+      "pais": "Australia",
+      "tipo": "regulador",
+      "sitioWeb": "https://www.arpansa.gov.au/",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
+      "id": "nea",
+      "nombre": "Nuclear Energy Agency",
+      "sigla": "NEA",
+      "pais": "Internacional",
+      "tipo": "internacional",
+      "descripcion": "Agencia intergubernamental organizada desde la Organización para la Cooperación y el Desarrollo Económicos. Su principal objetivo es promover el uso de la energía nuclear con propósitos pacíficos.​",
+      "sitioWeb": "https://oecd-nea.org/",
+      "iniciativas": [],
+      "documentos": []
+    },
+    {
+      "id": "eaio",
+      "nombre": "European AI Office",
+      "pais": "Europa",
+      "tipo": "internacional",
+      "descripcion": "Organismo de la Comisión Europea creado en enero de 2024 para implementar y hacer cumplir la Ley de Inteligencia Artificial de la UE.",
+      "sitioWeb": "https://artificialintelligenceact.eu/",
+      "iniciativas": [],
+      "documentos": []
     }
   ]
 }

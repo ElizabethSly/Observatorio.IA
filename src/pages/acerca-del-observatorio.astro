@@ -4,7 +4,6 @@ import Layout from "../layouts/Layout.astro";
 
 const secciones = [
   {
-    numero: "01",
     titulo: "Presentación",
     parrafos: [
       "El Observatorio de Inteligencia Artificial y Regulación Nuclear es una iniciativa en desarrollo en el ámbito del grupo de trabajo dedicado a la aplicación de herramientas de inteligencia artificial en la Autoridad Regulatoria Nuclear (ARN).",
@@ -13,7 +12,6 @@ const secciones = [
     ]
   },
   {
-    numero: "02",
     titulo: "Objetivos y alcance",
     parrafos: [
       "El proyecto contempla el relevamiento de iniciativas relacionadas con el uso de inteligencia artificial por parte de organismos reguladores nucleares, así como el seguimiento de desarrollos, experiencias y marcos regulatorios vinculados con estas tecnologías en el ámbito nacional e internacional.",
@@ -21,7 +19,6 @@ const secciones = [
     ]
   },
   {
-    numero: "03",
     titulo: "Metodología",
     parrafos: [
       "La información se incorpora mediante un proceso de búsqueda, selección y organización de contenidos de acuerdo con su pertinencia para los objetivos del Observatorio.",
@@ -29,21 +26,18 @@ const secciones = [
     ]
   },
   {
-    numero: "04",
     titulo: "Fuentes y verificación",
     parrafos: [
       "Se prioriza la consulta de fuentes oficiales, documentación institucional, informes técnicos y publicaciones especializadas. Cuando resulta posible, se procura contrastar la información con las fuentes originales y conservar referencias que permitan volver a consultar los antecedentes de cada registro."
     ]
   },
   {
-    numero: "05",
     titulo: "Desarrollo y actualización",
     parrafos: [
       "El Observatorio se encuentra en una etapa de desarrollo progresivo. La incorporación de nuevos registros, la revisión de la información existente y la mejora de los criterios de clasificación forman parte de un proceso continuo de construcción y perfeccionamiento de la herramienta."
     ]
   },
   {
-    numero: "06",
     titulo: "Alcances y limitaciones",
     parrafos: [
       "La información disponible depende de la documentación accesible y de las posibilidades de verificación de cada caso. La ausencia de un registro no implica necesariamente la inexistencia de una iniciativa, y la identificación de un desarrollo no supone, por sí misma, que se encuentre operativo o que haya sido evaluado de manera independiente."
@@ -66,12 +60,7 @@ const secciones = [
         nacionales e internacionales.
       </p>
 
-      <div class="tags">
-        <span>Investigación</span>
-        <span>Inteligencia artificial</span>
-        <span>Regulación nuclear</span>
-      </div>
-    </section>
+     </section>
 
     <section class="content">
       {secciones.map((seccion) => (
@@ -91,7 +80,7 @@ const secciones = [
 
     <footer class="note">
       <p>
-        <strong>Nota metodológica.</strong>
+        <strong>Nota metodológica: </strong>
         El contenido del Observatorio se encuentra sujeto a revisión y
         actualización. Cada registro debe interpretarse considerando
         su contexto, las fuentes disponibles y la fecha de la información
